@@ -1,0 +1,793 @@
+using System;
+using System.Collections;
+using System.Linq;
+using System.Collections.Generic;
+
+
+namespace Task1
+{
+
+    class student
+    {
+        public string firstname { get; set; }
+        public string lastname { get; set; }
+        public string smailid { get; set; }
+        public string branch { get; set; }
+        public double per { get; set; }
+        public List<string> skills { get; set; }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<student> slist = new List<student> {
+            new student(){ firstname = "ajay", lastname  ="rao", smailid ="ajayrao@gmail.com" , branch = "EE" , per = 85 , skills = new List<string>{ "Python"} },
+            new student(){ firstname = "jay", lastname  ="kumar", smailid ="jaykumar@gmail.com" , branch = "EE" , per = 89 , skills = new List<string>{ "MYSQL"}},
+            new student(){ firstname = "sanjay", lastname  ="agrawal", smailid ="sanjayagrawal@gmail.com" , branch = "CE" , per = 93 , skills = new List<string>{ "SQL"} },
+            new student(){ firstname = "Sara", lastname  ="Clark", smailid ="saraclark@gmail.com" , branch = "IT" , per = 82 , skills = new List<string>{ "JAVA"}},
+            new student(){ firstname = "Jack", lastname  ="Wilshire", smailid ="alexferguson@gmail.com" , branch = "CS" , per = 64 , skills = new List<string>{ "C++"} },
+            new student(){ firstname = "Mathew", lastname  ="Adam", smailid ="mathewadam@gmail.com" , branch = "ME" , per = 76 , skills = new List<string>{ "DBMS"}},
+            new student(){ firstname = "Arfi", lastname  ="kazi", smailid ="arfikazi@gmail.com" , branch = "EE" , per = 95 , skills = new List<string>{ "C#"} },
+            new student(){ firstname = "Elena", lastname  ="Blake", smailid ="elenablake@gmail.com" , branch = "CS" , per = 55 , skills = new List<string>{ ".NET"}}
+            };
+
+            //---------------------------------------------------Task 1------------------------------------------------------------//
+            Console.WriteLine("--------------------------------------Task 1---------------------------------");
+            Console.WriteLine("Select");
+            var query = slist.Select(i => i);
+            foreach (var i in query)
+                Console.WriteLine(i.firstname+","+i.lastname+","+i.smailid+","+i.branch+","+i.per);
+
+            var query1 = from i in slist select i;
+            foreach (var i in query1)
+                Console.WriteLine(i.firstname + "," + i.lastname + "," + i.smailid + "," + i.branch + "," + i.per);
+            Console.WriteLine("--------------------------------------------------------------");
+
+            Console.WriteLine("Where");
+
+            var query2 = from i in slist where i.per >= 86 select i;
+            foreach (var i in query2)
+                Console.WriteLine(i.firstname + "," + i.lastname + "," + i.smailid + "," + i.branch + "," + i.per);
+            Console.WriteLine("--------------------------------------------------------------");
+
+            var query3 = slist.Where(i => i.per >=86);
+            foreach (var i in query3)
+                Console.WriteLine(i.firstname + "," + i.lastname + "," + i.smailid + "," + i.branch + "," + i.per);
+            Console.WriteLine("--------------------------------------------------------------");
+
+            Console.WriteLine("Take");
+            IEnumerable<student> query4 = (from i in slist select i).Take(5);
+            foreach (var i in query4)
+                Console.WriteLine(i.firstname + "," + i.lastname + "," + i.smailid + "," + i.branch + "," + i.per);
+            Console.WriteLine("--------------------------------------------------------------");
+
+            IEnumerable<student> query5 = slist.Select(i => i).Take(5);
+            foreach (var i in query5)
+                Console.WriteLine(i.firstname + "," + i.lastname + "," + i.smailid + "," + i.branch + "," + i.per);
+            Console.WriteLine("--------------------------------------------------------------");
+
+            Console.WriteLine("TakeWhile");
+            IEnumerable<student> query6 = (from i in slist select i).TakeWhile(i=>i.per<=90);
+            foreach (var i in query6)
+                Console.WriteLine(i.firstname + "," + i.lastname + "," + i.smailid + "," + i.branch + "," + i.per);
+            Console.WriteLine("--------------------------------------------------------------");
+
+            IEnumerable<student> query7 = slist.TakeWhile(i => i.per <= 90);
+            foreach (var i in query7)
+                Console.WriteLine(i.firstname + "," + i.lastname + "," + i.smailid + "," + i.branch + "," + i.per);
+            Console.WriteLine("--------------------------------------------------------------");
+
+            Console.WriteLine("Skip");
+            IEnumerable<student> query8 = (from i in slist select i).Skip(5).Take(3);
+            foreach (var i in query8)
+                Console.WriteLine(i.firstname + "," + i.lastname + "," + i.smailid + "," + i.branch + "," + i.per);
+            Console.WriteLine("--------------------------------------------------------------");
+
+            IEnumerable<student> query9 = slist.Select(i => i).Skip(5).Take(3);
+            foreach (var i in query9)
+                Console.WriteLine(i.firstname + "," + i.lastname + "," + i.smailid + "," + i.branch + "," + i.per);
+            Console.WriteLine("--------------------------------------------------------------");
+
+            Console.WriteLine("SkipWhile");
+            IEnumerable<student> query10 = (from i in slist select i).SkipWhile(i => i.per < 80).TakeWhile(i=> i.per < 90);
+            foreach (var i in query10)
+                Console.WriteLine(i.firstname + "," + i.lastname + "," + i.smailid + "," + i.branch + "," + i.per);
+            Console.WriteLine("--------------------------------------------------------------");
+
+            IEnumerable<student> query11 = slist.SkipWhile(i=>i.per>90).TakeWhile(i => i.per < 90);
+            foreach (var i in query11)
+                Console.WriteLine(i.firstname + "," + i.lastname + "," + i.smailid + "," + i.branch + "," + i.per);
+            Console.WriteLine("--------------------------------------------------------------");
+
+            Console.WriteLine("Order By Descending");
+            var query12 = from i in slist orderby i.per descending select i;
+            foreach (var i in query12)
+                Console.WriteLine(i.firstname + "," + i.lastname + "," + i.smailid + "," + i.branch + "," + i.per);
+            Console.WriteLine("--------------------------------------------------------------");
+
+            var query13 = slist.OrderByDescending(i => i.per);
+            foreach (var i in query13)
+                Console.WriteLine(i.firstname + "," + i.lastname + "," + i.smailid + "," + i.branch + "," + i.per);
+            Console.WriteLine("--------------------------------------------------------------");
+
+            Console.WriteLine("Order By Ascending");
+            var query14 = from i in slist orderby i.per ascending select i;
+            foreach (var i in query14)
+                Console.WriteLine(i.firstname + "," + i.lastname + "," + i.smailid + "," + i.branch + "," + i.per);
+            Console.WriteLine("--------------------------------------------------------------");
+
+            var query15 = slist.OrderBy(i => i.per);
+            foreach (var i in query15)
+                Console.WriteLine(i.firstname + "," + i.lastname + "," + i.smailid + "," + i.branch + "," + i.per);
+            Console.WriteLine("--------------------------------------------------------------");
+
+            Console.WriteLine("Select Many");
+            var query41 = slist.SelectMany(i => i.skills);
+            foreach (var i in query41)
+                Console.WriteLine(i);
+            Console.WriteLine("--------------------------------------------------------------");
+
+            
+            
+            Console.WriteLine("Group by branches");
+            var query16 = slist.GroupBy(i => i.branch);
+            foreach (var group in query16)
+            {
+                Console.WriteLine("Branch = " + group.Key);
+                foreach (var i in group)
+                {
+                    Console.WriteLine(i.firstname + "," + i.lastname + "," + i.smailid + "," + i.branch + "," + i.per);
+                }
+            }
+            Console.WriteLine("--------------------------------------------------------------");
+
+            Console.WriteLine("Aggregate Function");
+            double sum = slist.Select(i=>i.per).Sum();
+            Console.WriteLine("Sum of Percentages = "+sum);
+
+            double sum1 = (from i in slist select i.per).Sum();
+            Console.WriteLine("Sum of Percentages = " + sum1);
+            Console.WriteLine("--------------------------------------------------------------");
+
+            double max = (from i in slist select i.per).Max();
+            Console.WriteLine("Maximum Percentage = " + max);
+
+            double max1 = slist.Select(i => i.per).Max();
+            Console.WriteLine("Maximum Percentage = " + max1);
+            Console.WriteLine("--------------------------------------------------------------");
+
+            double min = (from i in slist select i.per).Min();
+            Console.WriteLine("Maximum Percentage = " + min);
+
+            double min1 = slist.Select(i => i.per).Min();
+            Console.WriteLine("Maximum Percentage = " + min1);
+            Console.WriteLine("--------------------------------------------------------------");
+
+            double avg = (from i in slist select i.per).Average();
+            Console.WriteLine("Average of Percentage = " + avg);
+
+            double avg1 = slist.Select(i=>i.per).Average();
+            Console.WriteLine("Average of Percentage = " + avg1);
+            Console.WriteLine("--------------------------------------------------------------");
+
+            int count = (from i in slist select i).Count();
+            Console.WriteLine("Count of All element in List = " + count);
+
+            int count1 = slist.Select(i => i.per).Count();
+            Console.WriteLine("Count of All element in List = " + count1);
+            Console.WriteLine("--------------------------------------------------------------");
+
+            Console.WriteLine("Distinct");
+            var query17 = (from i in slist select i).Distinct();
+            foreach (var i in query17)
+                Console.WriteLine(i.firstname + "," + i.lastname + "," + i.smailid + "," + i.branch + "," + i.per);
+            Console.WriteLine("--------------------------------------------------------------");
+
+            var query18 = slist.Select(i => i).Distinct();
+            foreach (var i in query18)
+                Console.WriteLine(i.firstname + "," + i.lastname + "," + i.smailid + "," + i.branch + "," + i.per);
+            Console.WriteLine("--------------------------------------------------------------");
+
+            List<int> list = new List<int> { 1, 2, 2, 3, 4, 5, 6, 6, 6, 7, 8, 7, 9, 5, 10 };
+
+            Console.WriteLine("Let");
+            var query19 = from i in list let res = i + 10 select res;
+            foreach (int i in query19)
+                Console.WriteLine(i);
+            Console.WriteLine("--------------------------------------------------------------");
+
+            Console.WriteLine("into");
+            var query20 = from i in slist
+                          where i.branch == "EE"
+                          select i into res
+                          where
+                          res.per > 90 
+                        select res;
+            foreach (var i in query20)
+            {
+                Console.WriteLine(i.firstname + "," + i.lastname + "," + i.smailid + "," + i.branch + "," + i.per);
+            }
+            Console.WriteLine("--------------------------------------------------------------");
+
+            Console.WriteLine("ofType()");
+            object[] arr = new object[] { 1, "aaaa", 2, "bbbb", 3, "cccc", 4, "dddd" };
+            var query21 = (from i in arr select i).OfType<int>();
+            foreach(var i in query21)
+            {
+                Console.WriteLine(i);
+            }
+            Console.WriteLine("--------------------------------------------------------------");
+
+            Console.WriteLine("First");
+            var query22 = (from i in slist where i.branch == "EE" select (i.firstname, i.lastname)).First();
+            Console.WriteLine(query22);
+            Console.WriteLine("--------------------------------------------------------------");
+
+            Console.WriteLine("FirstorDefault");
+            var query23 = (from i in slist where i.branch == "AE" select (i.firstname,i.lastname) ).FirstOrDefault();
+            Console.WriteLine(query23);
+            Console.WriteLine("--------------------------------------------------------------");
+
+            Console.WriteLine("Last");
+            var query24 = (from i in slist where i.branch == "EE" select (i.firstname, i.lastname)).Last();
+            Console.WriteLine(query24);
+            Console.WriteLine("--------------------------------------------------------------");
+
+            Console.WriteLine("LastorDefault");
+            var query25 = (from i in slist where i.branch == "AE" select (i.firstname, i.lastname)).LastOrDefault();
+            Console.WriteLine(query25);
+            Console.WriteLine("--------------------------------------------------------------");
+
+            Console.WriteLine("ElementAt");
+            var query26 = (from i in slist select (i.firstname , i.lastname)).ElementAt(4);
+            Console.WriteLine(query26);
+            Console.WriteLine("--------------------------------------------------------------");
+
+            Console.WriteLine("ElementorDefault");
+            var query27 = (from i in slist select (i.firstname, i.lastname)).ElementAtOrDefault(14);
+            Console.WriteLine(query27);
+            Console.WriteLine("--------------------------------------------------------------");
+
+            Console.WriteLine("Single");
+            var query28 = (from i in slist where i.branch=="IT" select i).Single();
+            Console.WriteLine(query28.firstname + query28.lastname);
+            Console.WriteLine("--------------------------------------------------------------");
+
+            Console.WriteLine("SingleorDefault");
+            var query29 = (from i in slist where i.branch == "IT" select (i.firstname, i.lastname)).SingleOrDefault();
+            Console.WriteLine(query29);
+            Console.WriteLine("--------------------------------------------------------------");
+
+            Console.WriteLine("Deferred Execution Query");
+            var query30 = from i in slist select i;
+            slist.Add(new student() { firstname = "Kevin", lastname = "Black", smailid = "kevin@gmail.com", branch = "EE", per = 92 });
+            slist.Add(new student() { firstname = "Alan", lastname = "Walker", smailid = "alan@gmail.com", branch = "ME", per = 91 });
+            foreach (student s in query30)
+            {
+                Console.WriteLine(s.firstname + "," + s.lastname);
+            }
+            Console.WriteLine("-------------------------------------");
+
+            Console.WriteLine("Immediate Execution Query");
+            slist.Add(new student() { firstname = "Emma", lastname = "Watson", smailid = "emma@gmail.com", branch = "EE", per = 86 });
+            var query31 = from i in slist select i;
+            foreach (student s in query31)
+            {
+                Console.WriteLine(s.firstname + "," + s.lastname);
+            }
+            Console.WriteLine("-------------------------------------");
+
+            Console.WriteLine("Startswith Query");
+            var query32 = (from i in slist where i.firstname.StartsWith('A') select i);
+            foreach (var i in query32)
+            {
+                Console.WriteLine(i.firstname);
+            }
+            Console.WriteLine("----------------------------------");
+
+            Console.WriteLine("Endswith Query");
+            var query33 = (from i in slist where i.lastname.EndsWith('i') select i);
+            foreach (var i in query33)
+            {
+                Console.WriteLine(i.lastname);
+            }
+            Console.WriteLine("----------------------------------");
+
+            Console.WriteLine("Contains Query");
+            var query34 = (from i in slist where i.lastname.Contains('n') select i);
+            foreach (var i in query34)
+            {
+                Console.WriteLine(i.lastname);
+            }
+            Console.WriteLine("----------------------------------");
+
+            Console.WriteLine("IQueriable Query");
+            IQueryable<student> query35 = (from i in slist select i).AsQueryable();
+
+            foreach (var i in query35)
+            {
+                Console.WriteLine(i.firstname + " " + i.lastname);
+            }
+            Console.WriteLine("-------------------------------------");
+
+            Console.WriteLine("IEnumerable Query");
+            IEnumerable<string> query36 = slist.Select(i => i.firstname);
+            foreach (var i in query36)
+            {
+                Console.WriteLine(i);
+            }
+            Console.WriteLine("-------------------------------------");
+
+
+            //---------------------------------------Task 2----------------------------------------------------//
+
+            Console.WriteLine("------------------------------Task 2--------------------------------------------");
+
+
+            int[] array1 = new int[] { 100, 20, 10, 50, 60, 30, 40, 70, 80, 90 };
+            int[] array2 = new int[] { 5, 97, 50, 43, 37, 30, 80, 69, 20, 87 };
+
+            Console.WriteLine("Unoin");
+            var query37 = (from i in array1 select i).Union(from j in array2 select j);
+            foreach (int i in query37)
+            {
+                Console.WriteLine(i);
+            }
+            Console.WriteLine("-----------------------");
+
+            Console.WriteLine("Intersect");
+            var query38 = (from i in array1 select i).Intersect(from j in array2 select j);
+            foreach (int i in query38)
+            {
+                Console.WriteLine(i);
+            }
+            Console.WriteLine("-----------------------");
+
+            Console.WriteLine("Except");
+            var query39 = (from i in array1 select i).Except(from j in array2 select j);
+            foreach (int i in query39)
+            {
+                Console.WriteLine(i);
+            }
+            Console.WriteLine("-----------------------");
+
+            Console.WriteLine("Concat");
+            var query40 = (from i in array1 select i).Concat(from j in array2 select j);
+            foreach (int i in query40)
+            {
+                Console.WriteLine(i);
+            }
+            Console.WriteLine("-----------------------");
+
+            Console.WriteLine("Aggregate Functions:-");
+            Console.WriteLine("-----------------------");
+            
+            Console.WriteLine("Sum:-");
+            int s1 = (from i in array1 select i).Sum();
+            int s2 = (from i in array2 select i).Sum();
+            Console.WriteLine("Total Sum of two arrays:-" + (s1 + s2));
+            Console.WriteLine("-----------------------");
+           
+            Console.WriteLine("Max:-");
+            int maxm1 = (from i in array1 select i).Max();
+            int maxm2 = (from i in array2 select i).Max();
+            Console.WriteLine("Maximum number in both arrays:-" + (maxm1, maxm2));
+            Console.WriteLine("-----------------------");
+            
+            Console.WriteLine("Min:-");
+            int minm1 = (from i in array1 select i).Min();
+            int minm2 = (from i in array2 select i).Min();
+            Console.WriteLine("Minimum number in both arrays:-" + (minm1, minm2));
+            
+            Console.WriteLine("-----------------------");
+            Console.WriteLine("Average:-");
+
+            double Avg1 = (from i in array1 select i).Average();
+            double Avg2 = (from i in array2 select i).Average();
+
+            Console.WriteLine("Average of arrays:-" + (Avg1, Avg2));
+
+            Console.WriteLine("-----------------------");
+            Console.WriteLine("Count:-");
+
+            int count3 = (from i in array1 select i).Count();
+            int count4 = (from i in array2 select i).Count();
+
+            Console.WriteLine("Total number of elements in two arrays:-" + (count3, count4));
+            Console.WriteLine("-----------------------");
+
+            Console.WriteLine("Distinct");
+            var dis = (from i in array1 select i).Distinct();
+            foreach (var i in dis)
+            {
+                Console.WriteLine(i);
+            }
+            Console.WriteLine("-------");
+            var dist = (from i in array2 select i).Distinct();
+            foreach (var i in dist)
+            {
+                Console.WriteLine(i);
+            }
+            Console.WriteLine("-----------------------");
+
+        }
+    }
+}
+
+
+
+------------------------------------------------------------------------------------------Output----------------------------------------------------------------------------------------
+
+--------------------------------------Task 1---------------------------------
+Select
+ajay,rao,ajayrao@gmail.com,EE,85
+jay,kumar,jaykumar@gmail.com,EE,89
+sanjay,agrawal,sanjayagrawal@gmail.com,CE,93
+Sara,Clark,saraclark@gmail.com,IT,82
+Jack,Wilshire,alexferguson@gmail.com,CS,64
+Mathew,Adam,mathewadam@gmail.com,ME,76
+Arfi,kazi,arfikazi@gmail.com,EE,95
+Elena,Blake,elenablake@gmail.com,CS,55
+ajay,rao,ajayrao@gmail.com,EE,85
+jay,kumar,jaykumar@gmail.com,EE,89
+sanjay,agrawal,sanjayagrawal@gmail.com,CE,93
+Sara,Clark,saraclark@gmail.com,IT,82
+Jack,Wilshire,alexferguson@gmail.com,CS,64
+Mathew,Adam,mathewadam@gmail.com,ME,76
+Arfi,kazi,arfikazi@gmail.com,EE,95
+Elena,Blake,elenablake@gmail.com,CS,55
+--------------------------------------------------------------
+Where
+jay,kumar,jaykumar@gmail.com,EE,89
+sanjay,agrawal,sanjayagrawal@gmail.com,CE,93
+Arfi,kazi,arfikazi@gmail.com,EE,95
+--------------------------------------------------------------
+jay,kumar,jaykumar@gmail.com,EE,89
+sanjay,agrawal,sanjayagrawal@gmail.com,CE,93
+Arfi,kazi,arfikazi@gmail.com,EE,95
+--------------------------------------------------------------
+Take
+ajay,rao,ajayrao@gmail.com,EE,85
+jay,kumar,jaykumar@gmail.com,EE,89
+sanjay,agrawal,sanjayagrawal@gmail.com,CE,93
+Sara,Clark,saraclark@gmail.com,IT,82
+Jack,Wilshire,alexferguson@gmail.com,CS,64
+--------------------------------------------------------------
+ajay,rao,ajayrao@gmail.com,EE,85
+jay,kumar,jaykumar@gmail.com,EE,89
+sanjay,agrawal,sanjayagrawal@gmail.com,CE,93
+Sara,Clark,saraclark@gmail.com,IT,82
+Jack,Wilshire,alexferguson@gmail.com,CS,64
+--------------------------------------------------------------
+TakeWhile
+ajay,rao,ajayrao@gmail.com,EE,85
+jay,kumar,jaykumar@gmail.com,EE,89
+--------------------------------------------------------------
+ajay,rao,ajayrao@gmail.com,EE,85
+jay,kumar,jaykumar@gmail.com,EE,89
+--------------------------------------------------------------
+Skip
+Mathew,Adam,mathewadam@gmail.com,ME,76
+Arfi,kazi,arfikazi@gmail.com,EE,95
+Elena,Blake,elenablake@gmail.com,CS,55
+--------------------------------------------------------------
+Mathew,Adam,mathewadam@gmail.com,ME,76
+Arfi,kazi,arfikazi@gmail.com,EE,95
+Elena,Blake,elenablake@gmail.com,CS,55
+--------------------------------------------------------------
+SkipWhile
+ajay,rao,ajayrao@gmail.com,EE,85
+jay,kumar,jaykumar@gmail.com,EE,89
+--------------------------------------------------------------
+ajay,rao,ajayrao@gmail.com,EE,85
+jay,kumar,jaykumar@gmail.com,EE,89
+--------------------------------------------------------------
+Order By Descending
+Arfi,kazi,arfikazi@gmail.com,EE,95
+sanjay,agrawal,sanjayagrawal@gmail.com,CE,93
+jay,kumar,jaykumar@gmail.com,EE,89
+ajay,rao,ajayrao@gmail.com,EE,85
+Sara,Clark,saraclark@gmail.com,IT,82
+Mathew,Adam,mathewadam@gmail.com,ME,76
+Jack,Wilshire,alexferguson@gmail.com,CS,64
+Elena,Blake,elenablake@gmail.com,CS,55
+--------------------------------------------------------------
+Arfi,kazi,arfikazi@gmail.com,EE,95
+sanjay,agrawal,sanjayagrawal@gmail.com,CE,93
+jay,kumar,jaykumar@gmail.com,EE,89
+ajay,rao,ajayrao@gmail.com,EE,85
+Sara,Clark,saraclark@gmail.com,IT,82
+Mathew,Adam,mathewadam@gmail.com,ME,76
+Jack,Wilshire,alexferguson@gmail.com,CS,64
+Elena,Blake,elenablake@gmail.com,CS,55
+--------------------------------------------------------------
+Order By Ascending
+Elena,Blake,elenablake@gmail.com,CS,55
+Jack,Wilshire,alexferguson@gmail.com,CS,64
+Mathew,Adam,mathewadam@gmail.com,ME,76
+Sara,Clark,saraclark@gmail.com,IT,82
+ajay,rao,ajayrao@gmail.com,EE,85
+jay,kumar,jaykumar@gmail.com,EE,89
+sanjay,agrawal,sanjayagrawal@gmail.com,CE,93
+Arfi,kazi,arfikazi@gmail.com,EE,95
+--------------------------------------------------------------
+Elena,Blake,elenablake@gmail.com,CS,55
+Jack,Wilshire,alexferguson@gmail.com,CS,64
+Mathew,Adam,mathewadam@gmail.com,ME,76
+Sara,Clark,saraclark@gmail.com,IT,82
+ajay,rao,ajayrao@gmail.com,EE,85
+jay,kumar,jaykumar@gmail.com,EE,89
+sanjay,agrawal,sanjayagrawal@gmail.com,CE,93
+Arfi,kazi,arfikazi@gmail.com,EE,95
+--------------------------------------------------------------
+Select Many
+Python
+MYSQL
+SQL
+JAVA
+C++
+DBMS
+C#
+.NET
+--------------------------------------------------------------
+Group by branches
+Branch = EE
+ajay,rao,ajayrao@gmail.com,EE,85
+jay,kumar,jaykumar@gmail.com,EE,89
+Arfi,kazi,arfikazi@gmail.com,EE,95
+Branch = CE
+sanjay,agrawal,sanjayagrawal@gmail.com,CE,93
+Branch = IT
+Sara,Clark,saraclark@gmail.com,IT,82
+Branch = CS
+Jack,Wilshire,alexferguson@gmail.com,CS,64
+Elena,Blake,elenablake@gmail.com,CS,55
+Branch = ME
+Mathew,Adam,mathewadam@gmail.com,ME,76
+--------------------------------------------------------------
+Aggregate Function
+Sum of Percentages = 639
+Sum of Percentages = 639
+--------------------------------------------------------------
+Maximum Percentage = 95
+Maximum Percentage = 95
+--------------------------------------------------------------
+Maximum Percentage = 55
+Maximum Percentage = 55
+--------------------------------------------------------------
+Average of Percentage = 79.875
+Average of Percentage = 79.875
+--------------------------------------------------------------
+Count of All element in List = 8
+Count of All element in List = 8
+--------------------------------------------------------------
+Distinct
+ajay,rao,ajayrao@gmail.com,EE,85
+jay,kumar,jaykumar@gmail.com,EE,89
+sanjay,agrawal,sanjayagrawal@gmail.com,CE,93
+Sara,Clark,saraclark@gmail.com,IT,82
+Jack,Wilshire,alexferguson@gmail.com,CS,64
+Mathew,Adam,mathewadam@gmail.com,ME,76
+Arfi,kazi,arfikazi@gmail.com,EE,95
+Elena,Blake,elenablake@gmail.com,CS,55
+--------------------------------------------------------------
+ajay,rao,ajayrao@gmail.com,EE,85
+jay,kumar,jaykumar@gmail.com,EE,89
+sanjay,agrawal,sanjayagrawal@gmail.com,CE,93
+Sara,Clark,saraclark@gmail.com,IT,82
+Jack,Wilshire,alexferguson@gmail.com,CS,64
+Mathew,Adam,mathewadam@gmail.com,ME,76
+Arfi,kazi,arfikazi@gmail.com,EE,95
+Elena,Blake,elenablake@gmail.com,CS,55
+--------------------------------------------------------------
+Let
+11
+12
+12
+13
+14
+15
+16
+16
+16
+17
+18
+17
+19
+15
+20
+--------------------------------------------------------------
+into
+Arfi,kazi,arfikazi@gmail.com,EE,95
+--------------------------------------------------------------
+ofType()
+1
+2
+3
+4
+--------------------------------------------------------------
+First
+(ajay, rao)
+--------------------------------------------------------------
+FirstorDefault
+(, )
+--------------------------------------------------------------
+Last
+(Arfi, kazi)
+--------------------------------------------------------------
+LastorDefault
+(, )
+--------------------------------------------------------------
+ElementAt
+(Jack, Wilshire)
+--------------------------------------------------------------
+ElementorDefault
+(, )
+--------------------------------------------------------------
+Single
+SaraClark
+--------------------------------------------------------------
+SingleorDefault
+(Sara, Clark)
+--------------------------------------------------------------
+Deferred Execution Query
+ajay,rao
+jay,kumar
+sanjay,agrawal
+Sara,Clark
+Jack,Wilshire
+Mathew,Adam
+Arfi,kazi
+Elena,Blake
+Kevin,Black
+Alan,Walker
+-------------------------------------
+Immediate Execution Query
+ajay,rao
+jay,kumar
+sanjay,agrawal
+Sara,Clark
+Jack,Wilshire
+Mathew,Adam
+Arfi,kazi
+Elena,Blake
+Kevin,Black
+Alan,Walker
+Emma,Watson
+-------------------------------------
+Startswith Query
+Arfi
+Alan
+----------------------------------
+Endswith Query
+kazi
+----------------------------------
+Contains Query
+Watson
+----------------------------------
+IQueriable Query
+ajay rao
+jay kumar
+sanjay agrawal
+Sara Clark
+Jack Wilshire
+Mathew Adam
+Arfi kazi
+Elena Blake
+Kevin Black
+Alan Walker
+Emma Watson
+-------------------------------------
+IEnumerable Query
+ajay
+jay
+sanjay
+Sara
+Jack
+Mathew
+Arfi
+Elena
+Kevin
+Alan
+Emma
+-------------------------------------
+------------------------------Task 2--------------------------------------------
+Unoin
+100
+20
+10
+50
+60
+30
+40
+70
+80
+90
+5
+97
+43
+37
+69
+87
+-----------------------
+Intersect
+20
+50
+30
+80
+-----------------------
+Except
+100
+10
+60
+40
+70
+90
+-----------------------
+Concat
+100
+20
+10
+50
+60
+30
+40
+70
+80
+90
+5
+97
+50
+43
+37
+30
+80
+69
+20
+87
+-----------------------
+Aggregate Functions:-
+-----------------------
+Sum:-
+Total Sum of two arrays:-1068
+-----------------------
+Max:-
+Maximum number in both arrays:-(100, 97)
+-----------------------
+Min:-
+Minimum number in both arrays:-(10, 5)
+-----------------------
+Average:-
+Average of arrays:-(55, 51.8)
+-----------------------
+Count:-
+Total number of elements in two arrays:-(10, 10)
+-----------------------
+Distinct
+100
+20
+10
+50
+60
+30
+40
+70
+80
+90
+-------
+5
+97
+50
+43
+37
+30
+80
+69
+20
+87
+-----------------------
+
+C:\Users\moham\source\repos\Task1\Task1\bin\Debug\netcoreapp3.1\Task1.exe (process 20444) exited with code 0.
+To automatically close the console when debugging stops, enable Tools->Options->Debugging->Automatically close the console when debugging stops.
+Press any key to close this window . . .
+ 
